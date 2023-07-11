@@ -1,7 +1,7 @@
 Revision history for Kafka-Librd
 
 0.20 2021-04-30 09:27:54 -0600
-  - Moved to new GtiHub org: uperl
+  - Moved to new GitHub org: uperl
 
 0.19 2020-12-02 05:46:51 -0700
   - Production release identical to 0.18_01.
@@ -16,7 +16,7 @@ Revision history for Kafka-Librd
   - Added support for Visual C++ + vcpkg (gh#21)
 
 0.14 2019-10-20 19:50:39 -0600
-  - Aded flush and destroy methods (gh#19, miket++)
+  - Added flush and destroy methods (gh#19, miket++)
 
 0.12 2019-07-26 15:25:57 -0400
   - Added timestamp method (gh#10, gh#14, eserte++)
@@ -26,7 +26,7 @@ Revision history for Kafka-Librd
 
 0.10 2019-02-09 10:01:17 -0500
   - New maintainer Graham Ollis <plicease@cpan.org>
-  - Fix compatability with Perls older than 5.8.9
+  - Fix compatibility with Perls older than 5.8.9
 
 0.09 Tue Oct 23 2018 Pavel Shaydo <zwon@cpan.org>
   - add note about maintenance status
