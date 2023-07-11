@@ -12,3 +12,4 @@ Kafka-Librd-*
 /Rdkafka.o
 /const_xs.inc
 *.o
+/.idea
