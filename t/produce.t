@@ -10,8 +10,9 @@ use Kafka::Librd qw();
     my $kafka = Kafka::Librd->new(
         Kafka::Librd::RD_KAFKA_PRODUCER,
         {
+            'bootstrap.servers' => 'localhost:9092',
             # this constrains the message size a well as topic name size
-            'message.max.bytes' => $max_message_size,
+            'message.max.bytes' => $max_message_size
         },
     );
     isa_ok $kafka, 'Kafka::Librd';
