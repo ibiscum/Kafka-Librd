@@ -7,16 +7,15 @@ on:
     tags-ignore:
       - '*'
   pull_request:
+  workflow_dispatch:
 
 jobs:
   perl:
-
     runs-on: ubuntu-latest
-
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        cip_tag:
+        perl-version:
           - "5.37"
           - "5.36"
           - "5.34"
@@ -33,48 +32,15 @@ jobs:
           - "5.12"
           - "5.10"
           - "5.8"
-
-    env:
-      CIP_TAG: ${{ matrix.cip_tag }}
-
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Bootstrap CIP
-        run: |
-          curl -L https://raw.githubusercontent.com/uperl/cip/main/bin/github-bootstrap | bash
-
-      - name: Cache-Key
-        id: cache-key
-        run: |
-          echo -n '::set-output name=key::'
-          cip cache-key
-
-      - name: Cache CPAN modules
-        uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - name: Setup Perl Environment
+        uses: shogo82148/actions-setup-perl@v1.16.1
         with:
-          path: ~/.cip
-          key: ${{ runner.os }}-build-${{ steps.cache-key.outputs.key }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ steps.cache-key.outputs.key }}
-
-      - name: Start-Container
+          perl-version: ${{ matrix.perl-version }}
+      - name: Perl Version
+        run: perl -V
+      - name: Run Tests
         run: |
-          cip start
-
-      - name: Diagnostics
-        run: |
-          cip diag
-
-      - name: Install-Dependencies
-        run: |
-          cip install
-
-      - name: Build + Test
-        run: |
-          cip script
-
-      - name: CPAN log
-        if: ${{ failure() }}
-        run: |
-          cip exec bash -c 'cat $HOME/.cpanm/latest-build/build.log'
+          cpanm --notest --installdeps -v .
+          cpanm --test-only -v .
